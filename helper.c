@@ -44,18 +44,16 @@ void insert(struct Node *node, int value){
 
 void preorder(struct Node *node){   // despues se le cambia el nombre pero aca se tiene que mostrar el Arbol y realizar  el llamado de otra funcion para el ordenamiento
     int array[6];
-
+    int i = 0;
     if(node != NULL){
 
-        for (int i = 0; i < 6; i++){        // ordena bien el array pero lo realiza 6 veces jeje ahora lo estoy viendo pero tiro Push para ustedes
+        for (; i < 6; i++){        // ordena bien el array pero lo realiza 6 veces jeje ahora lo estoy viendo pero tiro Push para ustedes
 
             array[i] = node->value;
-            printf("%d,", array[i]) ;
+            preorder(node->left);           // El problema esta aca porque llamo y me limpia el array y el i
+            preorder(node ->right);
 
 
         }
-        preorder(node->left);
-        preorder(node ->right);
-
     }
 }
