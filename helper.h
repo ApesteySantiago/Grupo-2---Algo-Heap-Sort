@@ -5,15 +5,14 @@
 #ifndef GRUPO_2___ALGO_HEAP_SORT_HELPER_H
 #define GRUPO_2___ALGO_HEAP_SORT_HELPER_H
 
+struct MaxHeap
+{
+    int size;
+    int* array;
+};
 
-struct Node {       // Estructura del arbol
-    int value;
-    struct Node *left;
-    struct Node *right;
-} Heap;
-
-struct Node *newNode(int value);
-void insert(struct Node *node, int value);
-void preorder(struct Node *node);
+void swap(int* a, int* b);
+void heapSort(int* array, int size);
+void printArray(int* arr, int size);
 
 #endif //GRUPO_2___ALGO_HEAP_SORT_HELPER_H
