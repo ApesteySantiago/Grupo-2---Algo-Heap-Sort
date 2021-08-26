@@ -7,31 +7,29 @@
 #include <stdio.h>
 #include "helper.h"
 
-void maxHeapify(struct MaxHeap* maxHeap, int idx)
+void maxHeapify(struct MaxHeap* maxHeap, int root)
 {
-    int largest = idx;  // Initialize largest as root
-    int left = (idx << 1) + 1;  // left = 2*idx + 1
-    int right = (idx + 1) << 1; // right = 2*idx + 2
+    int largest = root;                                                         // Inizializo a largest con la raiz
+    int left = (root << 1) + 1;                                                 // se acomoda -> left = 2 * root + 1
+    int right = (root + 1) << 1;                                                // se acomoda -> right = 2 * root + 2
 
-    // See if left child of root exists and is greater than
-    // root
+                                                                                // Se pregunta si el hijo izquierdo de la raiz existe y es mayor que la raiz
     if (left < maxHeap->size && maxHeap->array[left] > maxHeap->array[largest])
         largest = left;
 
-    // See if right child of root exists and is greater than
-    // the largest so far
+                                                                                // Se pregunta si el hijo de la raiz existe y si es mayor que el mas grande hasta ahora
     if (right < maxHeap->size && maxHeap->array[right] > maxHeap->array[largest])
         largest = right;
 
-    // Change root, if needed
-    if (largest != idx)
+                                                                                // Se cambia la raiz si es necesario, y se llama a la recursividad para acomodar los elementos
+    if (largest != root)
     {
-        swap(&maxHeap->array[largest], &maxHeap->array[idx]);
+        swap(&maxHeap->array[largest], &maxHeap->array[root]);
         maxHeapify(maxHeap, largest);
     }
 }
 
-void swap(int* a, int* b){
+void swap(int* a, int* b){                                                      // Funcion para cambiar entre elementos
     int t = *a; *a = *b;  *b = t;
 }
 
@@ -40,11 +38,11 @@ struct MaxHeap* createAndBuildHeap(int *array, int size)
     int i;
     struct MaxHeap* maxHeap =
             (struct MaxHeap*) malloc(sizeof(struct MaxHeap));
-    maxHeap->size = size;   // initialize size of heap
-    maxHeap->array = array; // Assign address of first element of array
+    maxHeap->size = size;                                                       // Se inicializa el tamanio del monticulo (Heap)
+    maxHeap->array = array;                                                     // Se asigna la direccion del primer elemento del arreglo
 
-    // Start from bottommost and rightmost internal mode and heapify all
-    // internal modes in bottom up way
+                                                                                // Comienza desde el nodo interno mas bajo y mas a la derecha y se apila
+                                                                                // todos los nodos internos de abajo hacia arriba
     for (i = (maxHeap->size - 2) / 2; i >= 0; --i)
         maxHeapify(maxHeap, i);
     return maxHeap;
@@ -52,25 +50,23 @@ struct MaxHeap* createAndBuildHeap(int *array, int size)
 
 void heapSort(int* array, int size)
 {
-    // Build a heap from the input data.
+                                                                                // Se crea el monticulo con los datos ingrasados
     struct MaxHeap* maxHeap = createAndBuildHeap(array, size);
 
-    // Repeat following steps while heap size is greater than 1.
-    // The last element in max heap will be the minimum element
+                                                                                // El while repite mientras el tamanio del monticulo sea mayor que 1
+                                                                                // El ultimo elemento maximo del monton sera el ultimo elemento
     while (maxHeap->size > 1)
     {
-        // The largest item in Heap is stored at the root. Replace
-        // it with the last item of the heap followed by reducing the
-        // size of heap by 1.
+                                                                                // El elemento mas grande del Heap se almacena en la raiz. Se pide que se reemplaze
+                                                                                // con el ultimo elemento del monton y que luego reduzca el tamanio del monton en 1
         swap(&maxHeap->array[0], &maxHeap->array[maxHeap->size - 1]);
-        --maxHeap->size;  // Reduce heap size
+        --maxHeap->size;                                                        // Aca se reduce el tamanio del monton
 
-        // Finally, heapify the root of tree.
+                                                                                // Se apila la raiz del arbol llamando a maxHeapify
         maxHeapify(maxHeap, 0);
     }
 }
 
-// A utility function to print a given array of given size
 void printArray(int* arr, int size)
 {
     int i;

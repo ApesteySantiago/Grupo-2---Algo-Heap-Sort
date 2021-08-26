@@ -4,19 +4,18 @@
 #include <stdio.h>
 #include "helper.h"
 
-/* Driver program to test above functions */
+
 int main()
 {
+    //int arr[] = {37,4,26,15,48};
+    //int arr[] = {15,4,37,48,26};
+    //int arr[] = {48,37,26,4,15};
     int arr[] = {4,48,37,15,26};
     int size = sizeof(arr)/sizeof(arr[0]);
 
     heapSort(arr, size);
 
-    printf("\nSorted array is \n");
+    printf("\nEl arreglo ordenado es: \n");
     printArray(arr, size);
     return 0;
 }
-
-
-//La complejidad algorítmica representa la cantidad de recursos (temporales) que necesita un algoritmo para resolver un problema
-// y por tanto permite determinar la eficiencia de dicho algoritmo.
